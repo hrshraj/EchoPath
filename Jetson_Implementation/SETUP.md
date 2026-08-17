@@ -39,12 +39,28 @@ ffmpeg, none of which belong on the board.
 ## Workstation setup
 
 ```bash
-# CUDA 11.8 torch first, from the PyTorch index
-uv pip install torch==2.4.1 torchvision==0.19.1 \
-    --index-url https://download.pytorch.org/whl/cu118
+# conda manages the environment; pip installs into it.
+#
+# --override-channels is required on this machine: .condarc lists Anaconda's
+# `defaults` channels, and `conda env create -f environment.yml` refuses to run until
+# their Terms of Service are accepted. Using conda-forge alone sidesteps that, and we
+# only need python + pip + ipykernel from conda anyway.
+conda create -p .\env -y --override-channels -c conda-forge python=3.11 pip ipykernel jupyter
 
-uv pip install -r requirements-workstation.txt
+# CUDA 11.8 torch is not on PyPI - take it from the PyTorch index first
+.\env\python.exe -m pip install torch==2.4.1+cu118 torchvision==0.19.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+
+.\env\python.exe -m pip install -r requirements-workstation.txt
 ```
+
+Activate by **path**, not by name — it is a prefix environment living inside this folder:
+
+```bash
+conda activate E:\EchoPath\Jetson_Implementation\env
+```
+
+Call `env\python.exe` directly rather than going through `conda run -p`, which threw an
+internal error on this machine.
 
 Then run the notebook top to bottom. Outputs land in `output/`.
 

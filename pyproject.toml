@@ -46,16 +46,14 @@ dependencies = [
     "ipykernel>=6.29.0",
 ]
 
-[[tool.uv.index]]
-name = "pypi"
-url = "https://pypi.org/simple"
-default = true
-
-[[tool.uv.index]]
-name = "pytorch-cu118"
-url = "https://download.pytorch.org/whl/cu118"
-
-[tool.uv.sources]
-torch       = { index = "pytorch-cu118" }
-torchvision = { index = "pytorch-cu118" }
-torchaudio  = { index = "pytorch-cu118" }
+# -----------------------------------------------------------------------------
+# Environment management is conda, not uv.
+#
+#   Jetson_Implementation/environment.yml               workstation spec
+#   Jetson_Implementation/requirements-workstation.txt  pip layer
+#   Jetson_Implementation/requirements-jetson.txt       the device (Python 3.6)
+#
+# The uv index configuration that used to live here has been removed. The CUDA 11.8
+# torch builds are not on PyPI and must come from the PyTorch index - see
+# Jetson_Implementation/SETUP.md for the exact commands.
+# -----------------------------------------------------------------------------
