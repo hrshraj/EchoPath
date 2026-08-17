@@ -1,0 +1,61 @@
+[project]
+name = "echopath"
+version = "0.1.0"
+description = "Real-Time Indoor Assistive Navigation System for Visually Impaired Users"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+
+dependencies = [
+    # ── PyTorch (CUDA 11.8) ───────────────────────────────────────────────────
+    "torch==2.4.1",
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
+
+    # ── HuggingFace stack ─────────────────────────────────────────────────────
+    "transformers>=5.0.0",
+    "huggingface-hub>=1.0.0",
+    "accelerate>=1.0.0",
+    "safetensors>=0.4.3",
+
+    # ── YOLO ──────────────────────────────────────────────────────────────────
+    "ultralytics>=8.3.0",
+
+    # ── Vision / Numerics ─────────────────────────────────────────────────────
+    "opencv-python>=4.10.0",
+    "pillow>=10.4.0",
+    "numpy>=1.26.0,<2.0.0",
+
+    # ── Model backbone ────────────────────────────────────────────────────────
+    "timm>=1.0.0",
+
+    # ── Data / Plotting ───────────────────────────────────────────────────────
+    "matplotlib>=3.9.0",
+    "pandas>=2.2.0",
+    "scipy>=1.13.0",
+    "seaborn>=0.13.0",
+    "pyyaml>=6.0.1",
+
+    # ── Audio ─────────────────────────────────────────────────────────────────
+    "pyttsx3>=2.90",
+
+    # ── Video encoding ────────────────────────────────────────────────────────
+    "imageio-ffmpeg==0.6.0",
+
+    # ── Notebook ──────────────────────────────────────────────────────────────
+    "jupyter>=1.1.0",
+    "ipykernel>=6.29.0",
+]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+
+[tool.uv.sources]
+torch       = { index = "pytorch-cu118" }
+torchvision = { index = "pytorch-cu118" }
+torchaudio  = { index = "pytorch-cu118" }

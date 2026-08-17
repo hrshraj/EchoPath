@@ -1,0 +1,75 @@
+# EchoPath — WORKSTATION conda environment  (BACKEND = 'torch')
+#
+#   conda env create -f environment.yml
+#   conda activate echopath
+#
+# To rebuild from scratch:
+#   conda env remove -n echopath && conda env create -f environment.yml
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# Why torch comes from pip and not conda
+#
+# PyTorch deprecated its conda channel; the CUDA 11.8 builds are published only as
+# wheels. So conda manages Python and the environment, and pip installs the stack
+# inside it. `--extra-index-url` (not `--index-url`) is deliberate: it adds the
+# PyTorch index without replacing PyPI, so ultralytics and pyttsx3 still resolve.
+# Using `--index-url` here is the bug in the repository's old top-level
+# requirements.txt — it sends pip looking for every package on the PyTorch index.
+#
+# NOTE: this environment is for the WORKSTATION only. The Jetson board runs
+# Python 3.6 with tensorrt and cv2 inherited from JetPack — see requirements-jetson.txt.
+# Do not try to build that one with conda on win-64.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: echopath
+
+channels:
+  - conda-forge
+  - nodefaults      # exclude repo.anaconda.com/pkgs/* - they need a ToS acceptance
+                    # and we only need python + pip + ipykernel from conda anyway
+
+dependencies:
+  - python=3.11
+  - pip>=24.0
+
+  # Jupyter, so the notebook can be run from this env
+  - ipykernel
+  - jupyter
+
+  - pip:
+      # ── PyTorch, CUDA 11.8 ───────────────────────────────────────────────
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - torch==2.4.1+cu118
+      - torchvision==0.19.1+cu118
+
+      # ── detection ────────────────────────────────────────────────────────
+      - ultralytics>=8.3.0
+
+      # ── depth: MiDaS Small's efficientnet_lite3 backbone, via torch.hub ──
+      - timm>=1.0.0
+
+      # ── vision / numerics ────────────────────────────────────────────────
+      - opencv-python>=4.10.0
+      - numpy>=1.26.0,<2.0.0       # <2.0: ultralytics + torch 2.4 are not numpy-2 clean
+      - pillow>=10.4.0
+
+      # ── audio ────────────────────────────────────────────────────────────
+      - pyttsx3>=2.90              # SAPI5 on Windows, espeak on Linux
+
+      # ── video muxing (cells 7 and 11) ────────────────────────────────────
+      - imageio-ffmpeg>=0.5.0
+
+      # ── calibration plots (cell 5) ───────────────────────────────────────
+      - matplotlib>=3.9.0
+
+      # ── ONNX export: produces the artefacts the Jetson consumes ──────────
+      - onnx>=1.16.0
+      - onnxruntime>=1.18.0        # numerical parity check against PyTorch
+      - onnxslim>=0.1.0            # required by ultralytics export(simplify=True)
+
+      # ── pulled in by ultralytics; pinned so a fresh env is reproducible ──
+      - pyyaml>=6.0.1
+      - scipy>=1.13.0
+      - pandas>=2.2.0
+      - psutil>=5.9.0
+      - tqdm>=4.66.0

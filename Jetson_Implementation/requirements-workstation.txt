@@ -1,0 +1,48 @@
+# EchoPath — WORKSTATION requirements  (BACKEND = 'torch')
+#
+# For running EchoPath_Jetson.ipynb on the development PC: training, ONNX export,
+# batch video processing, and the annotated/voiced outputs.
+#
+# Install:
+#     uv pip install -r requirements-workstation.txt
+#     # or:  pip install -r requirements-workstation.txt
+#
+# NOTE on torch: the CUDA 11.8 builds are NOT on PyPI. Install those first, from the
+# PyTorch index, then this file. Do not put --index-url at the top of this file — it
+# would apply to every package here, and ultralytics/pyttsx3/etc. are not on that index
+# (that mistake is why the old top-level requirements.txt does not work):
+#
+#     uv pip install torch==2.4.1 torchvision==0.19.1 \
+#         --index-url https://download.pytorch.org/whl/cu118
+
+# ── detection ────────────────────────────────────────────────────────────────
+ultralytics>=8.3.0            # YOLOv8n; needs Python >= 3.8
+
+# ── depth ────────────────────────────────────────────────────────────────────
+timm>=1.0.0                   # MiDaS Small's efficientnet_lite3 backbone (via torch.hub)
+
+# ── vision / numerics ────────────────────────────────────────────────────────
+opencv-python>=4.10.0
+numpy>=1.26.0,<2.0.0          # <2.0: ultralytics + torch 2.4 are not numpy-2 clean
+pillow>=10.4.0
+
+# ── audio ────────────────────────────────────────────────────────────────────
+pyttsx3>=2.90                 # SAPI5 on Windows, espeak on Linux
+
+# ── video muxing (cells 7 and 11) ────────────────────────────────────────────
+imageio-ffmpeg>=0.5.0         # bundles an ffmpeg binary
+
+# ── plots (cell 5 calibration only) ──────────────────────────────────────────
+matplotlib>=3.9.0
+
+# ── ONNX export, for producing the artefacts the Jetson consumes ─────────────
+onnx>=1.16.0
+onnxruntime>=1.18.0           # numerical parity check against PyTorch
+onnxslim>=0.1.0               # ultralytics export(simplify=True) needs this
+
+# ── pulled in by ultralytics; pinned here so a fresh env is reproducible ─────
+pyyaml>=6.0.1
+scipy>=1.13.0
+pandas>=2.2.0
+psutil>=5.9.0
+tqdm>=4.66.0

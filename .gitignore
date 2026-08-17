@@ -1,0 +1,97 @@
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# ─── Environments ────────────────────────────────────────────────────────────
+# Never commit an environment. It is gigabytes of compiled platform-specific
+# binaries with absolute paths baked in, and it is fully reproducible from
+# environment.yml + requirements-workstation.txt. Those files ARE the environment,
+# in the only form worth versioning.
+.venv/
+env/
+envs/
+Jetson_Implementation/env/
+*.conda
+conda-meta/
+
+# ─── Archives ────────────────────────────────────────────────────────────────
+# Video_Data.zip is 3.9 GB, the two experiment archives are ~120 MB each.
+# Keep them on a drive or in cloud storage, not in git.
+*.zip
+*.tar
+*.tar.gz
+*.tbz2
+*.7z
+
+# ─── Datasets and source video ───────────────────────────────────────────────
+Video_Data/
+dataset_merged/
+dataset_merged_v3/
+__MACOSX/
+
+# ─── Video output (any extension, any folder) ────────────────────────────────
+*.mp4
+*.MP4
+*.avi
+*.mkv
+*.mov
+*.MOV
+*.flv
+*.wmv
+
+# ─── Training runs ───────────────────────────────────────────────────────────
+# Ultralytics writes weights, plots and batch previews here every run. The
+# deployment weights are tracked explicitly further down.
+runs/
+
+# ─── Generated model artefacts ───────────────────────────────────────────────
+# ONNX is regenerated from best.pt by the export cell (~115 MB total).
+# TensorRT .plan files are built ON the Jetson and are not portable across
+# TensorRT version or GPU, so they are never worth committing.
+onnx/
+engines/
+*.onnx
+*.plan
+*.engine
+
+# Vendored MiDaS weights (~88 MB) - re-download or re-vendor as needed.
+models/midas_small/
+
+# ─── Pipeline output ─────────────────────────────────────────────────────────
+out_jetson/
+Jetson_Implementation/output/
+midas_small/output*/
+"Depth Analysis V2/output/"
+"Depth Anything Indoor/Output/"
+*.jsonl
+*.log
+
+# ─── Notebook backups written during editing ─────────────────────────────────
+*.ipynb.bak
+*.ipynb.bak2
+.ipynb_checkpoints/
+
+# ─── OS / editor ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Explicitly TRACKED despite the rules above
+# ═════════════════════════════════════════════════════════════════════════════
+# The deployment weights - 6 MB, and the single most important artefact in the
+# repository. Everything else is derived from these.
+!runs/detect/runs/echopath/v3/weights/best.pt
+
+# The pre-rendered alert vocabulary - 12.5 MB, ~3 minutes to regenerate, but
+# keeping it means the Jetson folder is copy-and-run without a render step.
+!Jetson_Implementation/assets/audio/*.wav
+
+# Dataset definition (not the images)
+!dataset_merged_v3/dataset_merged_v3/data.yaml

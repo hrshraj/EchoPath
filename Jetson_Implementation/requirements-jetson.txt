@@ -1,0 +1,86 @@
+# EchoPath — JETSON NANO requirements  (BACKEND = 'tensorrt')
+#
+# Target: Tanna TechBiz Eagle 101 + NVIDIA Jetson Nano module
+#         JetPack 4.6.x / L4T 32.7 / Ubuntu 18.04 / Python 3.6
+#         CUDA 10.2 / cuDNN 8.2 / TensorRT 8.2 / Maxwell SM 5.3
+#
+# This list is deliberately almost empty. Everything that matters — tensorrt, cv2,
+# numpy — is installed system-wide by JetPack and MUST be inherited, not reinstalled.
+#
+#     python3 -m venv --system-site-packages ~/echopath-env
+#     source ~/echopath-env/bin/activate
+#     pip install -r requirements-jetson.txt
+#
+# The --system-site-packages flag is the whole trick: it lets the venv see JetPack's
+# tensorrt and cv2 while still giving you somewhere to put pycuda.
+
+
+# ── the only real install ────────────────────────────────────────────────────
+pycuda==2021.1                # last release supporting Python 3.6.
+                              # Compiles against JetPack's CUDA 10.2; needs
+                              #   export PATH=/usr/local/cuda/bin:$PATH
+                              #   export CUDA_ROOT=/usr/local/cuda
+
+# ── audio ────────────────────────────────────────────────────────────────────
+pyttsx3==2.90                 # on Linux this drives espeak (see apt list below).
+                              # Only a fallback: the alert vocabulary should be
+                              # pre-rendered to WAV on the workstation and played
+                              # with aplay, so the A57 cores do no synthesis.
+
+
+# =============================================================================
+#  INHERITED FROM JETPACK — do NOT pip install these
+# =============================================================================
+#   tensorrt    8.2.x     python3-libnvinfer (apt, ships with JetPack)
+#   cv2         4.1.1     built WITH GStreamer + CUDA
+#   numpy       1.19.5    last version supporting Python 3.6
+#
+#   *** NEVER run: pip install opencv-python ***
+#   It shadows JetPack's build with a generic wheel that has NO GStreamer, and the
+#   nvarguscamerasrc CSI pipeline silently stops opening. The failure looks like a
+#   camera fault, with nothing pointing back at the pip install.
+#
+# =============================================================================
+#  APT PACKAGES
+# =============================================================================
+#   sudo apt install -y espeak libespeak1 alsa-utils
+#     espeak / libespeak1  pyttsx3's Linux backend
+#     alsa-utils           aplay, for playing the pre-rendered alert WAVs
+#
+# =============================================================================
+#  WILL NOT INSTALL — and are not needed
+# =============================================================================
+#   torch / torchvision   last cp36 aarch64 wheel is 1.10.0; torch 2.x needs >= 3.8
+#   ultralytics           requires Python >= 3.8
+#   timm, matplotlib      workstation-only (calibration plots, MiDaS backbone)
+#   imageio-ffmpeg        no aarch64 py36 wheel; the device writes no video
+#   onnx / onnxruntime    export happens on the workstation, not here
+#
+# =============================================================================
+#  MODEL ARTEFACTS
+# =============================================================================
+#  Copy onnx/*.onnx from the workstation, then build the engines ON THIS BOARD.
+#  A .plan is not portable across TensorRT version or GPU architecture, so an engine
+#  built on the RTX workstation will not deserialise here.
+#
+#    /usr/src/tensorrt/bin/trtexec --onnx=onnx/yolov8n_640.onnx --fp16 --verbose \
+#        --workspace=512 --saveEngine=engines/yolo_640_fp16.plan
+#    /usr/src/tensorrt/bin/trtexec --onnx=onnx/midas_small_256.onnx --fp16 \
+#        --workspace=512 --saveEngine=engines/midas_256_fp16.plan
+#
+#  FP16, not INT8. Maxwell is compute capability 5.3 and has no DP4A instruction, so
+#  TensorRT cannot do INT8 here. --int8 warns and silently falls back to FP16, which
+#  is worse than failing: the engine looks quantised and performs like FP16.
+#
+#  Check the --verbose log for layers that fell back to FP32.
+#
+# =============================================================================
+#  BEFORE THE FIRST BUILD
+# =============================================================================
+#   sudo systemctl set-default multi-user.target     # headless: frees ~1 GB of 4 GB
+#   sudo fallocate -l 8G /swapfile && sudo chmod 600 /swapfile
+#   sudo mkswap /swapfile && sudo swapon /swapfile   # persist via /etc/fstab
+#   sudo nvpmodel -m 0 && sudo jetson_clocks         # MAXN + pinned clocks
+#
+#  Without swap the TensorRT builder is OOM-killed part-way through, and the message
+#  lands in dmesg rather than on stdout.
