@@ -4,15 +4,17 @@
 # batch video processing, and the annotated/voiced outputs.
 #
 # Install:
-#     uv pip install -r requirements-workstation.txt
-#     # or:  pip install -r requirements-workstation.txt
+#     .\env\python.exe -m pip install -r requirements-workstation.txt
+#
+# The environment itself is a conda prefix env inside this folder; see SETUP.md.
+# Call env\python.exe directly rather than `conda run -p`, which errors on this box.
 #
 # NOTE on torch: the CUDA 11.8 builds are NOT on PyPI. Install those first, from the
 # PyTorch index, then this file. Do not put --index-url at the top of this file — it
 # would apply to every package here, and ultralytics/pyttsx3/etc. are not on that index
 # (that mistake is why the old top-level requirements.txt does not work):
 #
-#     uv pip install torch==2.4.1 torchvision==0.19.1 \
+#     .\env\python.exe -m pip install torch==2.4.1+cu118 torchvision==0.19.1+cu118 \
 #         --index-url https://download.pytorch.org/whl/cu118
 
 # ── detection ────────────────────────────────────────────────────────────────
