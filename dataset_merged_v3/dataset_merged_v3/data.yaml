@@ -1,0 +1,5 @@
+train: train/images
+val: valid/images
+
+nc: 19
+names: ['person', 'chair', 'door', 'stairs', 'slide', 'whiteboard', 'notice_board', 'elevator', 'column', 'window', 'water_dispenser', 'backpack', 'handbag', 'potted_plant', 'waste_bin', 'fire_extinguisher', 'wet_floor_sign', 'table', 'monitor']

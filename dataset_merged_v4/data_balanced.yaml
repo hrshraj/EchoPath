@@ -1,0 +1,21 @@
+train: E:\EchoPath\dataset_merged_v4\train_balanced.txt
+val: E:\EchoPath\dataset_merged_v4\valid\images
+nc: 17
+names:
+- person
+- chair
+- door
+- stairs
+- slide
+- whiteboard
+- notice_board
+- elevator
+- column
+- window
+- water_dispenser
+- potted_plant
+- waste_bin
+- fire_extinguisher
+- wet_floor_sign
+- table
+- monitor

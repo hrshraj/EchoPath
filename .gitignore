@@ -27,21 +27,49 @@ conda-meta/
 *.tbz2
 *.7z
 
-# ─── Datasets and source video ───────────────────────────────────────────────
-Video_Data/
+# ─── Datasets ────────────────────────────────────────────────────────────────
+# Images are never committed (~1 GB per version; datasets/ holds two ~1 GB
+# archives of the v1 and v2 data). Only the small files that define each
+# dataset are kept.
 dataset_merged/
-dataset_merged_v3/
+dataset_merged_v4_interim/
+datasets/
 __MACOSX/
 
-# ─── Video output (any extension, any folder) ────────────────────────────────
-*.mp4
-*.MP4
-*.avi
-*.mkv
-*.mov
-*.MOV
-*.flv
-*.wmv
+# v3: data.yaml only. Each level is opened separately because git cannot
+# re-include a file once its parent folder is ignored.
+dataset_merged_v3/*
+!dataset_merged_v3/dataset_merged_v3/
+dataset_merged_v3/dataset_merged_v3/*
+!dataset_merged_v3/dataset_merged_v3/data.yaml
+
+# v4 (current, used by Yolo_train.py): configs, balancing and leakage notes,
+# provenance and sources - not train/ or valid/.
+dataset_merged_v4/*
+!dataset_merged_v4/*.md
+!dataset_merged_v4/*.yaml
+!dataset_merged_v4/*.csv
+!dataset_merged_v4/*.bib
+!dataset_merged_v4/train_balanced.txt
+
+# ─── Video (source and output, any folder) ───────────────────────────────────
+# Bracketed so upper-case extensions are also caught on Linux (the Jetson);
+# git on Windows ignores case anyway.
+Video_Data/
+Video_Data.zip
+*.[mM][pP]4
+*.[mM]4[vV]
+*.[mM][oO][vV]
+*.[aA][vV][iI]
+*.[mM][kK][vV]
+*.[wW][eE][bB][mM]
+*.[fF][lL][vV]
+*.[wW][mM][vV]
+*.[mM][pP][gG]
+*.[mM][pP][eE][gG]
+*.3[gG][pP]
+*.[mM][tT][sS]
+*.[mM]2[tT][sS]
 
 # ─── Training runs ───────────────────────────────────────────────────────────
 # Ultralytics writes weights, plots and batch previews here every run. The
@@ -65,8 +93,8 @@ models/midas_small/
 out_jetson/
 Jetson_Implementation/output/
 midas_small/output*/
-"Depth Analysis V2/output/"
-"Depth Anything Indoor/Output/"
+Depth Analysis V2/output/
+Depth Anything Indoor/Output/
 *.jsonl
 *.log
 
@@ -93,5 +121,4 @@ desktop.ini
 # keeping it means the Jetson folder is copy-and-run without a render step.
 !Jetson_Implementation/assets/audio/*.wav
 
-# Dataset definition (not the images)
-!dataset_merged_v3/dataset_merged_v3/data.yaml
+# Dataset definitions (not the images) are handled in the Datasets section.

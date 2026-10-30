@@ -1,0 +1,132 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\Newlabel{cor1}{1}
+\citation{who2023}
+\citation{singh2022}
+\citation{aishe2021}
+\citation{aishe2019,aishe_impaired_data}
+\citation{at2030}
+\citation{abdul2023}
+\citation{redmon2016yolo}
+\citation{jocher2023yolov8}
+\Newlabel{a}{a}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{zhao2023rtdetr}
+\citation{bhatlawande2014}
+\citation{li2020yolo}
+\citation{zhao2023rtdetr}
+\citation{ranftl2020midas}
+\citation{ahmetovic2016navcog}
+\citation{ahmetovic2019sonification}
+\citation{messaoudi2022}
+\citation{yu2025visa}
+\citation{kedia2017mavi}
+\citation{kasture2021}
+\citation{sharma2020}
+\citation{jocher2023yolov8}
+\citation{ranftl2020midas}
+\citation{ahmetovic2019sonification}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Methodology}{2}{section.2}\protected@file@percent }
+\newlabel{sec:method}{{2}{2}{Methodology}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}System architecture}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Audio output module}{2}{subsection.2.2}\protected@file@percent }
+\newlabel{sec:audio}{{2.2}{2}{Audio output module}{subsection.2.2}{}}
+\citation{zhao2023rtdetr}
+\citation{messaoudi2022}
+\citation{lin2014coco}
+\citation{rf_person,rf_chair,rf_door,rf_navigation,rf_whiteboard,rf_notice,rf_elevatordoor,rf_column,rf_window,rf_water,rf_plant,rf_wastebin,rf_dustbin,rf_trashbin,rf_fire,rf_wetfloor,rf_table,rf_monitor}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Architecture of EchoPath: (1)~frame capture; (2,~3)~YOLOv8n detection and MiDaS Small depth estimation; (4)~fusion into class, lateral zone and proximity; (5)~alert string; (6)~offline speech. Gate~1 discards objects outside the close and medium zones and Gate~2 alerts within the cooldown or outranked by a nearer obstacle; the dashed line is the per-frame loop.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:pipeline}{{1}{3}{Architecture of EchoPath: (1)~frame capture; (2,~3)~YOLOv8n detection and MiDaS Small depth estimation; (4)~fusion into class, lateral zone and proximity; (5)~alert string; (6)~offline speech. Gate~1 discards objects outside the close and medium zones and Gate~2 alerts within the cooldown or outranked by a nearer obstacle; the dashed line is the per-frame loop}{figure.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \rev  {YOLOv8n versus RT-DETR-L under the setup of Section~2.3} (median / 95th percentile over 390 frames). Accuracy on the five classes shared with COCO (v4 validation split); the COCO models are not fine-tuned.}}{3}{table.1}\protected@file@percent }
+\newlabel{tab:model_compare}{{1}{3}{\rev {YOLOv8n versus RT-DETR-L under the setup of Section~2.3} (median / 95th percentile over 390 frames). Accuracy on the five classes shared with COCO (v4 validation split); the COCO models are not fine-tuned}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Model selection: YOLOv8n versus RT-DETR}{3}{subsection.2.3}\protected@file@percent }
+\citation{rf_navigation,rf_elevatordoor}
+\citation{rf_monitor}
+\citation{rf_plant}
+\citation{rf_dustbin,rf_trashbin}
+\citation{jocher2023yolov8}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \rev  {Dataset versions and results on each run's own validation split.} ``Head'' is the number of output classes, ``eval.'' the number with validation labels; leakage is the share of validation images with a near-duplicate (Hamming distance $\leq 4$) in training. v2's data are reconstructed from an archived copy made before table and monitor were added (21,601 / 2,352 / 1,211 images) plus the table and monitor images identified in v3: validation is exact, training and test sizes are derived from the logged batches per epoch, and leakage is an upper bound. Absolute changes: v1 to v2 $+$0.068 P, $+$0.134 R, $+$0.107 mAP@50, $+$0.108 mAP@50-95; v2 to v3 $-$0.014, $-$0.040, $-$0.039 ($-$4.3\% relative) and $-$0.042.}}{4}{table.2}\protected@file@percent }
+\newlabel{tab:datasets}{{2}{4}{\rev {Dataset versions and results on each run's own validation split.} ``Head'' is the number of output classes, ``eval.'' the number with validation labels; leakage is the share of validation images with a near-duplicate (Hamming distance $\leq 4$) in training. v2's data are reconstructed from an archived copy made before table and monitor were added (21,601 / 2,352 / 1,211 images) plus the table and monitor images identified in v3: validation is exact, training and test sizes are derived from the logged batches per epoch, and leakage is an upper bound. Absolute changes: v1 to v2 $+$0.068 P, $+$0.134 R, $+$0.107 mAP@50, $+$0.108 mAP@50-95; v2 to v3 $-$0.014, $-$0.040, $-$0.039 ($-$4.3\% relative) and $-$0.042}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Dataset construction and object classes}{4}{subsection.2.4}\protected@file@percent }
+\newlabel{sec:dataset}{{2.4}{4}{Dataset construction and object classes}{subsection.2.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \rev  {(a)~Training labels per class for v3 and v4}, by importance tier (Section~\ref {sec:training}); \rev  {the v3 imbalance is why v4 was retrained}, and the v4 balanced list is what v4 sees per epoch. (b)~Recall at the deployment threshold (confidence 0.40; chair 0.25) of v3 and v4 on the fair validation subset (no near-duplicate in either training split); changes $\geq 0.3$ are printed.}}{5}{figure.2}\protected@file@percent }
+\newlabel{fig:labels}{{2}{5}{\rev {(a)~Training labels per class for v3 and v4}, by importance tier (Section~\ref {sec:training}); \rev {the v3 imbalance is why v4 was retrained}, and the v4 balanced list is what v4 sees per epoch. (b)~Recall at the deployment threshold (confidence 0.40; chair 0.25) of v3 and v4 on the fair validation subset (no near-duplicate in either training split); changes $\geq 0.3$ are printed}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Training configuration and hyperparameter tuning}{5}{subsection.2.5}\protected@file@percent }
+\newlabel{sec:training}{{2.5}{5}{Training configuration and hyperparameter tuning}{subsection.2.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Experimental results}{5}{section.3}\protected@file@percent }
+\newlabel{sec:results}{{3}{5}{Experimental results}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Detection results}{5}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:v4}{{3.1}{5}{Detection results}{subsection.3.1}{}}
+\citation{ranftl2020midas}
+\citation{depthanythingv2}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \rev  {Per-class results of Training~v3 (submitted) and Training~v4 (revised, class-balanced)}, each on its own validation split; \rev  {P and R at the confidence that maximises each run's mean F1.} For v4 the table also gives the training labels on disk and per epoch in the balanced list, the validation labels, and \rev  {P and R at the deployment threshold of 0.40}; the v3 and v4 splits differ (Section~\ref {sec:v4}).}}{6}{table.3}\protected@file@percent }
+\newlabel{tab:perclass}{{3}{6}{\rev {Per-class results of Training~v3 (submitted) and Training~v4 (revised, class-balanced)}, each on its own validation split; \rev {P and R at the confidence that maximises each run's mean F1.} For v4 the table also gives the training labels on disk and per epoch in the balanced list, the validation labels, and \rev {P and R at the deployment threshold of 0.40}; the v3 and v4 splits differ (Section~\ref {sec:v4})}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Depth model comparison and alert quality}{6}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:depth}{{3.2}{6}{Depth model comparison and alert quality}{subsection.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Normalised confusion matrices (confidence 0.25; diagonal entries are per-class recall) of (a)~Training~v3, \rev  {with empty backpack and handbag rows and columns}, and \rev  {(b)~Training~v4 (17 classes)}.}}{7}{figure.3}\protected@file@percent }
+\newlabel{fig:cms}{{3}{7}{Normalised confusion matrices (confidence 0.25; diagonal entries are per-class recall) of (a)~Training~v3, \rev {with empty backpack and handbag rows and columns}, and \rev {(b)~Training~v4 (17 classes)}}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}End-to-end latency and frame rate}{7}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:latency}{{3.3}{7}{End-to-end latency and frame rate}{subsection.3.3}{}}
+\citation{farzaneh2022}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \rev  {Depth model comparison with the v4 detector on the 13 videos} (same frames and detections in every row): the deployed percentile rule (Section~2.1) or fixed thresholds of 0.70 and 0.40, both on the inner-box median; the last row reproduces the earlier Depth Anything V2 notebook. \rev  {Precision, false alerts and missed hazards (95\% Wilson intervals) refer to the alerts spoken after the 2~s gap.}}}{8}{table.4}\protected@file@percent }
+\newlabel{tab:depth_compare}{{4}{8}{\rev {Depth model comparison with the v4 detector on the 13 videos} (same frames and detections in every row): the deployed percentile rule (Section~2.1) or fixed thresholds of 0.70 and 0.40, both on the inner-box median; the last row reproduces the earlier Depth Anything V2 notebook. \rev {Precision, false alerts and missed hazards (95\% Wilson intervals) refer to the alerts spoken after the 2~s gap.}}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \rev  {Relative depth as used by EchoPath} (sign.mp4, 2.0~s). (a)~Detected box and zone. (b,~c)~Per-frame MiDaS Small and Depth Anything V2 Small depth (1 = nearest point of this frame) with the frame's 75th (solid, ``close'') and 50th (dashed, ``medium'') percentile contours. The wet floor sign is close because its inner-box median lies above the 75th percentile (0.98 for MiDaS); \rev  {the values carry no metric scale.}}}{8}{figure.4}\protected@file@percent }
+\newlabel{fig:reldepth}{{4}{8}{\rev {Relative depth as used by EchoPath} (sign.mp4, 2.0~s). (a)~Detected box and zone. (b,~c)~Per-frame MiDaS Small and Depth Anything V2 Small depth (1 = nearest point of this frame) with the frame's 75th (solid, ``close'') and 50th (dashed, ``medium'') percentile contours. The wet floor sign is close because its inner-box median lies above the 75th percentile (0.98 for MiDaS); \rev {the values carry no metric scale.}}{figure.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \rev  {Latency on the RTX~4500 Ada GPU with detection and depth estimation running} (median / 95th percentile in ms). Offline rows time each of the 3,644 processed frames; the live replay streams the videos at 30~frames per second and speaks the alerts through the deployed speaker.}}{8}{table.5}\protected@file@percent }
+\newlabel{tab:latency}{{5}{8}{\rev {Latency on the RTX~4500 Ada GPU with detection and depth estimation running} (median / 95th percentile in ms). Offline rows time each of the 3,644 processed frames; the live replay streams the videos at 30~frames per second and speaks the alerts through the deployed speaker}{table.5}{}}
+\citation{jocher2023yolov8}
+\citation{zhao2023rtdetr}
+\citation{at2030}
+\citation{ahmetovic2016navcog}
+\citation{messaoudi2022}
+\bibcite{who2023}{{1}{}{{}}{{}}}
+\bibcite{singh2022}{{2}{}{{}}{{}}}
+\bibcite{aishe2021}{{3}{}{{}}{{}}}
+\bibcite{aishe2019}{{4}{}{{}}{{}}}
+\bibcite{aishe_impaired_data}{{5}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{9}{section.4}\protected@file@percent }
+\newlabel{sec:discussion}{{4}{9}{Discussion}{section.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{9}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{9}{Conclusion}{section.5}{}}
+\bibcite{at2030}{{6}{}{{}}{{}}}
+\bibcite{abdul2023}{{7}{}{{}}{{}}}
+\bibcite{redmon2016yolo}{{8}{}{{}}{{}}}
+\bibcite{jocher2023yolov8}{{9}{}{{}}{{}}}
+\bibcite{zhao2023rtdetr}{{10}{}{{}}{{}}}
+\bibcite{bhatlawande2014}{{11}{}{{}}{{}}}
+\bibcite{li2020yolo}{{12}{}{{}}{{}}}
+\bibcite{ranftl2020midas}{{13}{}{{}}{{}}}
+\bibcite{ahmetovic2016navcog}{{14}{}{{}}{{}}}
+\bibcite{ahmetovic2019sonification}{{15}{}{{}}{{}}}
+\bibcite{messaoudi2022}{{16}{}{{}}{{}}}
+\bibcite{yu2025visa}{{17}{}{{}}{{}}}
+\bibcite{kedia2017mavi}{{18}{}{{}}{{}}}
+\bibcite{kasture2021}{{19}{}{{}}{{}}}
+\bibcite{sharma2020}{{20}{}{{}}{{}}}
+\bibcite{lin2014coco}{{21}{}{{}}{{}}}
+\bibcite{rf_person}{{22}{}{{}}{{}}}
+\bibcite{rf_chair}{{23}{}{{}}{{}}}
+\bibcite{rf_door}{{24}{}{{}}{{}}}
+\bibcite{rf_navigation}{{25}{}{{}}{{}}}
+\bibcite{rf_whiteboard}{{26}{}{{}}{{}}}
+\bibcite{rf_notice}{{27}{}{{}}{{}}}
+\bibcite{rf_elevatordoor}{{28}{}{{}}{{}}}
+\bibcite{rf_column}{{29}{}{{}}{{}}}
+\bibcite{rf_window}{{30}{}{{}}{{}}}
+\bibcite{rf_water}{{31}{}{{}}{{}}}
+\bibcite{rf_plant}{{32}{}{{}}{{}}}
+\bibcite{rf_wastebin}{{33}{}{{}}{{}}}
+\bibcite{rf_dustbin}{{34}{}{{}}{{}}}
+\bibcite{rf_trashbin}{{35}{}{{}}{{}}}
+\bibcite{rf_fire}{{36}{}{{}}{{}}}
+\bibcite{rf_wetfloor}{{37}{}{{}}{{}}}
+\bibcite{rf_table}{{38}{}{{}}{{}}}
+\bibcite{rf_monitor}{{39}{}{{}}{{}}}
+\bibcite{depthanythingv2}{{40}{}{{}}{{}}}
+\bibcite{farzaneh2022}{{41}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\newlabel{lastpage}{{5}{10}{Acknowledgements}{section*.2}{}}
+\gdef \@abspage@last{10}

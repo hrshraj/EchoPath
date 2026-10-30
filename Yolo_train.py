@@ -8,7 +8,7 @@ def main():
     model = YOLO("yolov8n.pt")
 
     results = model.train(
-        data=r"E:\EchoPath\dataset_merged_v3\dataset_merged_v3\data.yaml",
+        data=r"E:\EchoPath\dataset_merged_v4\data_balanced.yaml",
         epochs=100,
         imgsz=640,
         batch=64,
@@ -16,7 +16,7 @@ def main():
         device=device,
         workers=12,
         project="runs/echopath",
-        name="v3",
+        name="v4",
     )
 
 if __name__ == "__main__":
